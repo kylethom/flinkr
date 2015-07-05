@@ -55,6 +55,7 @@ body{
 	cursor: pointer;
 }
 
+#breadcrumbs-root:hover,
 .circular:hover{
 	border: solid 1px #fc329b;
 	margin: -1px;
@@ -68,13 +69,13 @@ body{
 
 #groups{
 	opacity: 0;
+	margin: 10px 0px;
+	position: relative;
 	transition: opacity 0.5s ease;
 	-o-transition: opacity 0.5s ease;
 	-ms-transition: opacity 0.5s ease;
 	-webkit-transition: opacity 0.5s ease;
 	-moz-transition: opacity 0.5s ease;
-	margin: 10px 0px;
-	position: relative;
 }
 
 #groups h3{
@@ -128,13 +129,11 @@ body{
 	width: 33%;
 	height: 200px;
 	float: left;
+	padding: 10px;
 	overflow: hidden;
 	text-align: center;
-	box-sizing: border-box;
-	padding: 10px;
-	/*border: 10px solid white;*/
 	white-space: nowrap;
-	text-align: center;
+	box-sizing: border-box;
 
 	transition: all 0.2s ease;
 	-o-transition: all 0.2s ease;
@@ -145,7 +144,16 @@ body{
 
 .containImg:hover{
 	padding: 0;
-	/*border: 0px;*/
+}
+
+#results:hover .containImg{
+	opacity: .6;
+}
+
+#results:hover .containImg:hover{
+	overflow: visible;
+	z-index: 100;
+	opacity: 1;
 }
 
 .containImg img{
@@ -172,20 +180,6 @@ body{
 	top: calc(50% + 10px);
 }
 
-#results:hover .containImg{
-	opacity: .6;
-}
-
-#results:hover .containImg:hover{
-	overflow: visible;
-	z-index: 100;
-	opacity: 1;
-}
-
-.containImg:hover img::after{
-	content: 'explore this image';
-}
-
 .photo-overlay{
 	position: absolute;
 	top: 0;
@@ -202,19 +196,21 @@ body{
 }
 
 .no-photos{
-	opacity: 0;
-	position: relative;
-  	top: calc(45% + 10px); 
-  	-webkit-transform: translateY(-50%);
-  	-ms-transform: translateY(-50%);
-  	transform: translateY(-50%);
-	margin: 0 auto;
-	width: 50%;
-	padding-top: 50%;
 	height: 0%;
+	width: 50%;
+	position: relative;
+	top: calc(45% + 10px); 
+	margin: 0 auto;
+	padding-top: 50%;
+	opacity: 0;
 	border-radius: 50%;
 	background-color: rgba(0,0,0,0.5);
 	color: white;
+	
+	-webkit-transform: translateY(-50%);
+  	-ms-transform: translateY(-50%);
+  	transform: translateY(-50%);
+
 	transition: all 0.2s ease;
 	-o-transition: all 0.2s ease;
 	-ms-transition: all 0.2s ease;

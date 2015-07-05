@@ -73,6 +73,7 @@ function getGroupPhotos(groupId, groupName){
 	});
 }
 
+//Clears all breadcrumbs
 function returnToRoot(){
 	getInterestingPhotos();
 	breadCrumbList = [];
@@ -87,12 +88,15 @@ function addBreadCrumb(id,type,content){
 	var duplicateIdCount = 0;
 	var elementId;
 	
+	//Count duplicate breadcrumbs
 	$.each(breadCrumbId, function(i){
 		if( breadCrumbId[i].slice(0,-2) == elementId){
 			duplicateIdCount ++;
 		}
 	});
 	elementId = elementId + "-" + duplicateIdCount;
+
+	//Add breadcrumb to array
 	if(type == 'img'){
 		var crumb = $("<div class='circular' id="+ elementId +" data-flickrId=" + flickrId + " style='background-image:url("+ content +")'></div>");
 	}else if(type == 'group'){
@@ -115,14 +119,12 @@ function renderBreadCrumbs(){
 function removeBreadCrumb(id){
 	var elementId = id;
 	var removeAfter;
-	var removeTo;
 
 	$.each(breadCrumbList, function(i){
 		if(breadCrumbList[i].attr('id') == elementId){
 			removeAfter = i+1;
 		}
 	});
-	removeTo = breadCrumbList.length - removeAfter;
 	breadCrumbList = breadCrumbList.splice(0, removeAfter);	
 }
 
