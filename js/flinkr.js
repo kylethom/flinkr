@@ -37,8 +37,8 @@ function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
 			$('#groups').css('display','block');
 			$('#groups').css('opacity',1);
 			var imgLink = "https://www.flickr.com/photos/"+ imgOwner +"/"+imgId;
+			$('#selected-photo').append("<a href="+ imgLink +" target='_blank'><p>View Photo on Flickr</p></a>");
 			$('#selected-photo').append("<img src="+ imgUrl +"></img>");
-			$('#selected-photo').append("<a href="+ imgLink +">View Photo on Flickr</a>");
 			if(data.pool.length > 1){
 				$('#photo-groups-wrapper').prepend("<h2>This photo is in "+ data.pool.length +" groups</h2>")
 			}else{
@@ -48,10 +48,6 @@ function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
 			var groupWrapperHeight = $('#photo-groups-wrapper').outerHeight();
 			var groupTitleHeight = $('#photo-groups-wrapper h2').outerHeight(true);
 			var groupListHeight = groupWrapperHeight - groupTitleHeight;
-
-			console.log(groupWrapperHeight);
-			console.log(groupTitleHeight);
-			console.log(groupListHeight);
 
 			$('#photo-groups').css('height',groupListHeight);
 
@@ -110,7 +106,9 @@ function returnToRoot(){
 	breadCrumbList = [];
 	breadCrumbId = [];
 	renderBreadCrumbs();
-	$('#breadcrumbs').append("<p id='intro'>Select an interesting photo to continue.</p>");
+	$('#intro').css('display','block');
+	$('#intro').empty();
+	$('#intro').append("<p>Select an interesting photo to continue.</p>");
 }
 
 function addBreadCrumb(id,type,content,imgOwner){
@@ -118,7 +116,7 @@ function addBreadCrumb(id,type,content,imgOwner){
 	var elementId = id.replace(/[^a-z0-9\s]/gi, '');
 	var duplicateIdCount = 0;
 	var elementId;
-	
+
 	//Count duplicate breadcrumbs
 	$.each(breadCrumbId, function(i){
 		if( breadCrumbId[i].slice(0,-2) == elementId){
@@ -140,11 +138,25 @@ function addBreadCrumb(id,type,content,imgOwner){
 
 function renderBreadCrumbs(){
 	$('#breadcrumbs').empty();
-	$('#breadcrumbs').append("<div id='breadcrumbs-root'><img src='img/root-icon.png'></div>");
+	$('#intro').css('display','none');
+	$('#breadcrumbs-root').css('opacity',1)
+	
 	$.each(breadCrumbList, function(i){
 		$('#breadcrumbs').append("<img src='img/arrow-icon.png'>");
 		$('#breadcrumbs').append( breadCrumbList[i]);
 	});
+
+	$('#breadcrumbs').append("<div style='width:20px; height:1px; float: left;'></div>");
+
+	
+	//scroll to end of breadcrumbs
+	var breadcrumbListWidth = 0;	
+	$('#breadcrumbs').children().each(function(){
+		console.log( $(this).outerWidth(true));
+		breadcrumbListWidth = breadcrumbListWidth + $(this).outerWidth(true);
+	});
+	breadcrumbListWidth = breadcrumbListWidth;
+	$('#breadcrumbs-wrapper').animate({scrollLeft: breadcrumbListWidth},800);
 }
 
 function removeBreadCrumb(id){
