@@ -13,6 +13,10 @@ $(document).ready(function(){
 	$(document.body).css('height',bodyHeight);
 });
 
+$(window).resize(function(){
+	resizeGroupResults();
+})
+
 function getInterestingPhotos(){
 	$('#results').empty();
 	$('#results').css('opacity', 1);
@@ -20,12 +24,19 @@ function getInterestingPhotos(){
 	$('#groups').css('display','none');
 	$('#results').css('display', 'block');
 	$.get( "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key="+ apiKey + "&per_page=50&format=json&nojsoncallback=1", function( data ) {
-		console.log(data);
 		$.each(data.photos.photo, function(i){
 			var imgUrl = "https://farm" + data.photos.photo[i].farm + ".staticflickr.com/" + data.photos.photo[i].server + "/" + data.photos.photo[i].id + "_" + data.photos.photo[i].secret + ".jpg";			
 			$('#results').append( "<div class='containImg' id="+ data.photos.photo[i].id +" data-owner="+ data.photos.photo[i].owner +"><span class='helper'></span><img class='interestingImg' src="+ imgUrl +"></img></div>" );
 		});
 	});
+}
+
+function resizeGroupResults(){
+	var groupWrapperHeight = $('#photo-groups-wrapper').outerHeight();
+	var groupTitleHeight = $('#photo-groups-wrapper h2').outerHeight(true);
+	var groupListHeight = groupWrapperHeight - groupTitleHeight;
+
+	$('#photo-groups').css('height',groupListHeight);
 }
 
 function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
@@ -45,11 +56,7 @@ function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
 				$('#photo-groups-wrapper').prepend("<h2>This photo is in " + data.pool.length +" group</h2>")
 			}
 
-			var groupWrapperHeight = $('#photo-groups-wrapper').outerHeight();
-			var groupTitleHeight = $('#photo-groups-wrapper h2').outerHeight(true);
-			var groupListHeight = groupWrapperHeight - groupTitleHeight;
-
-			$('#photo-groups').css('height',groupListHeight);
+			resizeGroupResults();
 
 			$.each(data.pool, function(i){
 				$.get("https://api.flickr.com/services/rest/?method=flickr.groups.getInfo&api_key="+ apiKey +"&group_id="+ data.pool[i].id +"&format=json&nojsoncallback=1", function(groupData){
@@ -76,7 +83,6 @@ function showPhotoGroups(){
 }
 
 function getGroupPhotos(groupId, groupName){
-	console.log('getGroupPhotos');
 	$('#selected-photo').empty();
 	$('#photo-groups').empty();
 	$('#results').empty();	
@@ -146,10 +152,10 @@ function renderBreadCrumbs(){
 	//scroll to end of breadcrumbs
 	var breadcrumbListWidth = 0;	
 	$('#breadcrumbs').children().each(function(){
-		console.log( $(this).outerWidth(true));
 		breadcrumbListWidth = breadcrumbListWidth + $(this).outerWidth(true);
 	});
 	breadcrumbListWidth = breadcrumbListWidth;
+	$('#breadcrumbs').css('width',breadcrumbListWidth + 50);
 	$('#breadcrumbs-wrapper').animate({scrollLeft: breadcrumbListWidth},800);
 }
 
