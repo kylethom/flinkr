@@ -9,13 +9,24 @@ body{
 	font-weight: 300;
 }
 
-a{
+a,
+a:visited{
+	color: #0063dc;
 	text-decoration: none;
 }
 
-a:hover,
-a:visited:hover{
-	text-decoration: underline;
+a p{
+	border-bottom: 2px solid white;
+
+	transition: border-bottom 0.2s ease;
+	-o-transition: border-bottom 0.2s ease;
+	-ms-transition: border-bottom 0.2s ease;
+	-webkit-transition: border-bottom 0.2s ease;
+	-moz-transition: border-bottom 0.2s ease;
+}
+
+a:hover p{
+	border-bottom: 2px solid #fc329b;
 }
 
 #title{
@@ -29,14 +40,30 @@ a:visited:hover{
 	cursor: pointer;
 }
 
+#intro{
+	width: calc(100% - 164px);
+	height: 92px;
+	text-align: center;
+	margin: 20px auto;
+	line-height: 20px;
+}
+
+#intro p{
+	margin: 3px 0px 0px 0px;
+	padding: 0px;
+	float: none;
+}
+
+#intro p:first-of-type{
+	padding-top: 24px;
+}
+
+/* BREADCRUMBS --------------------------- */
+
 #breadcrumbs-wrapper{
 	overflow: scroll;
 	width: calc(100% - 98px);
-	padding: 20px 0px;
-}
-
-#breadcrumbs{
-	width: 10000px;
+	padding: 0px 0px;
 }
 
 #breadcrumbs-wrapper:after{
@@ -57,29 +84,8 @@ a:visited:hover{
 		);
 }
 
-#intro{
-	width: 100%;
-	text-align: center;
-	margin: 20px 0px;
-	line-height: 20px;
-}
-
-#intro p{
-	margin: 3px 0px 0px 0px;
-	padding: 0px;
-	float: none;
-}
-
-#results{
-	margin: 0 auto;
-	max-width: 852px;
-	text-align: center;
-
-	transition: opacity 0.5s ease;
-	-o-transition: opacity 0.5s ease;
-	-ms-transition: opacity 0.5s ease;
-	-webkit-transition: opacity 0.5s ease;
-	-moz-transition: opacity 0.5s ease;
+#breadcrumbs{
+	width: 10000px;
 }
 
 #breadcrumbs img{
@@ -90,10 +96,6 @@ a:visited:hover{
 
 #breadcrumbs p{
 	float: left;
-}
-
-#breadcrumbs #intro p{
-	float: none;
 }
 
 #breadcrumbs-root{
@@ -171,89 +173,18 @@ a:visited:hover{
 	margin-bottom: 15px;
 }
 
-#groups{
-	opacity: 0;
-	margin: 0px auto;
-	position: relative;
+/* IMAGE RESULTS --------------------------- */
+
+#results{
+	margin: 0 auto;
 	max-width: 852px;
-	height: 100%;
-	padding: 0 20px;
+	text-align: center;
 
 	transition: opacity 0.5s ease;
 	-o-transition: opacity 0.5s ease;
 	-ms-transition: opacity 0.5s ease;
 	-webkit-transition: opacity 0.5s ease;
 	-moz-transition: opacity 0.5s ease;
-}
-
-#selected-photo{
-	float: left;
-	height: 100%;
-	width: 50%;
-	text-align: center;
-}
-
-#selected-photo p{
-	float: right;
-	line-height: 2.5em;
-}
-
-#selected-photo img{
-	max-width: 100%;
-	max-height: 100%;
-}
-
-#photo-groups-wrapper{
-	float: left;
-	width: 50%;
-	height: 100%;
-	box-sizing: border-box;
-}
-
-#photo-groups-wrapper h2{
-	margin: 20px 0px;
-}
-
-#photo-groups{
-	height: 100%;
-	left: 50%;
-	top: 0;
-	bottom: 0;
-	box-sizing: border-box;
-	overflow-y: auto;
-	padding-right: 20px;
-}
-
-.groupPhoto{
-	cursor: pointer;
-	min-height: 48px;
-	padding: 5px;
-	background-color: white;
-	border-radius: 32px;
-	margin: 10px 0px;
-
-	transition: background-color 0.1s ease;
-	-o-transition: background-color 0.1s ease;
-	-ms-transition: background-color 0.1s ease;
-	-webkit-transition: background-color 0.1s ease;
-	-moz-transition: background-color 0.1s ease;
-}
-
-.groupPhoto:hover{
-	background-color: #e2e2e2;
-}
-
-.groupPhoto:hover .circular{
-	border: 2px solid #fc329b;
-}
-
-.groupPhoto h2{
-	display: inline;
-}
-
-.groupPhoto h3{
-	margin-left: 58px;
-	margin-top: 8px;
 }
 
 .containImg{
@@ -374,5 +305,90 @@ a:visited:hover{
     display: inline-block;
     height: 100%;
     vertical-align: middle;
+}
+
+/* GROUP RESULTS --------------------------- */
+
+#groups{
+	opacity: 0;
+	margin: 0px auto;
+	position: relative;
+	max-width: 852px;
+	height: 100%;
+	padding: 0 20px;
+
+	transition: opacity 0.5s ease;
+	-o-transition: opacity 0.5s ease;
+	-ms-transition: opacity 0.5s ease;
+	-webkit-transition: opacity 0.5s ease;
+	-moz-transition: opacity 0.5s ease;
+}
+
+#selected-photo{
+	float: left;
+	height: 100%;
+	width: 50%;
+	text-align: center;
+}
+
+#selected-photo p{
+	float: right;
+	line-height: 2.5em;
+	padding-top: 14px;
+}
+
+#selected-photo img{
+	max-width: 100%;
+	max-height: 100%;
+}
+
+#photo-groups-wrapper{
+	float: left;
+	width: 50%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+#photo-groups-wrapper h2{
+	margin: 20px 0px;
+}
+
+#photo-groups{
+	height: 100%;
+	left: 50%;
+	top: 0;
+	bottom: 0;
+	box-sizing: border-box;
+	overflow-y: auto;
+	padding-right: 20px;
+}
+
+.groupPhoto{
+	cursor: pointer;
+	min-height: 48px;
+	padding: 5px;
+	background-color: white;
+	border-radius: 32px;
+	margin: 10px 0px;
+
+	transition: background-color 0.1s ease;
+	-o-transition: background-color 0.1s ease;
+	-ms-transition: background-color 0.1s ease;
+	-webkit-transition: background-color 0.1s ease;
+	-moz-transition: background-color 0.1s ease;
+}
+
+.groupPhoto:hover{
+	background-color: #f0f0f0;
+}
+
+.groupPhoto:hover .circular{
+	border: 2px solid #fc329b;
+}
+
+.groupPhoto h3{
+	margin-left: 58px;
+	margin-top: 13px;
+	margin-bottom: 15px;
 }
 

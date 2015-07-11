@@ -51,14 +51,6 @@ function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
 
 			$('#photo-groups').css('height',groupListHeight);
 
-			
-			// var groupTitleHeight = $('#photo-groups-wrapper h2').outerHeight();
-			// var groupListHeight = $('#selected-photo').height();
-			// console.log(groupTitleHeight);
-			// console.log(groupListHeight);
-			// groupListHeight = groupListHeight - groupTitleHeight;
-			// $('#photo-groups').css('height',groupListHeight);
-
 			$.each(data.pool, function(i){
 				$.get("https://api.flickr.com/services/rest/?method=flickr.groups.getInfo&api_key="+ apiKey +"&group_id="+ data.pool[i].id +"&format=json&nojsoncallback=1", function(groupData){
 					var groupPhotoUrl = "http://farm"+ groupData.group.iconfarm +".staticflickr.com/"+ groupData.group.iconserver+"/buddyicons/"+ groupData.group.id +".jpg";
@@ -106,6 +98,7 @@ function returnToRoot(){
 	breadCrumbList = [];
 	breadCrumbId = [];
 	renderBreadCrumbs();
+	$('#breadcrumbs-wrapper').css('padding','0px 0px');
 	$('#intro').css('display','block');
 	$('#intro').empty();
 	$('#intro').append("<p>Select an interesting photo to continue.</p>");
@@ -140,6 +133,7 @@ function renderBreadCrumbs(){
 	$('#breadcrumbs').empty();
 	$('#intro').css('display','none');
 	$('#breadcrumbs-root').css('opacity',1)
+	$('#breadcrumbs-wrapper').css('padding','20px 0px');
 	
 	$.each(breadCrumbList, function(i){
 		$('#breadcrumbs').append("<img src='img/arrow-icon.png'>");
