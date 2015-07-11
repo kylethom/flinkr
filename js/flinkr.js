@@ -17,6 +17,19 @@ $(window).resize(function(){
 	resizeGroupResults();
 })
 
+function resizeGroupResults(){
+	var groupsHeight = $(window).height();
+	var titleHeight = $('#title').height();
+	var breadcrumbHeight = $('#breadcrumbs-wrapper').outerHeight(true);
+	groupsHeight = groupsHeight - titleHeight - breadcrumbHeight;
+	$('#groups').css('height', groupsHeight);
+
+	var groupWrapperHeight = $('#photo-groups-wrapper').outerHeight();
+	var groupTitleHeight = $('#photo-groups-wrapper h2').outerHeight(true);
+	var groupListHeight = groupWrapperHeight - groupTitleHeight;
+	$('#photo-groups').css('height',groupListHeight);
+}
+
 function getInterestingPhotos(){
 	$('#results').empty();
 	$('#results').css('opacity', 1);
@@ -31,17 +44,10 @@ function getInterestingPhotos(){
 	});
 }
 
-function resizeGroupResults(){
-	var groupWrapperHeight = $('#photo-groups-wrapper').outerHeight();
-	var groupTitleHeight = $('#photo-groups-wrapper h2').outerHeight(true);
-	var groupListHeight = groupWrapperHeight - groupTitleHeight;
-
-	$('#photo-groups').css('height',groupListHeight);
-}
-
 function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
 	$.get("https://api.flickr.com/services/rest/?method=flickr.photos.getAllContexts&api_key="+ apiKey +"&photo_id="+imgId+"&format=json&nojsoncallback=1", function(data){
 		if(data.pool){
+			resizeGroupResults();
 			$('#selected-photo').empty();
 			$('#photo-groups').empty();
 			$('#photo-groups-wrapper h2').remove();
