@@ -18,16 +18,14 @@ $(window).resize(function(){
 })
 
 function resizeGroupResults(){
-	var groupsHeight = $(window).height();
-	var titleHeight = $('#title').height();
-	var breadcrumbHeight = $('#breadcrumbs-wrapper').outerHeight(true);
-	groupsHeight = groupsHeight - titleHeight - breadcrumbHeight;
-	$('#groups').css('height', groupsHeight);
 
-	var groupWrapperHeight = $('#photo-groups-wrapper').outerHeight();
-	var groupTitleHeight = $('#photo-groups-wrapper h2').outerHeight(true);
-	var groupListHeight = groupWrapperHeight - groupTitleHeight;
-	$('#photo-groups').css('height',groupListHeight);
+	var groupWrapperHeight = $(window).height();
+	var titleHeight = $('#title').outerHeight(true);
+	var breadcrumbHeight = $('#breadcrumbs-wrapper').outerHeight(true);
+	var photoTitleHeight = $('#photo-groups-title h2').outerHeight(true);
+
+	groupWrapperHeight = groupWrapperHeight - titleHeight - breadcrumbHeight - photoTitleHeight - 25;
+	$('#photo-groups-wrapper').css('height', groupWrapperHeight);
 }
 
 function getInterestingPhotos(){
@@ -50,16 +48,17 @@ function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
 			resizeGroupResults();
 			$('#selected-photo').empty();
 			$('#photo-groups').empty();
+			$('#photo-groups-title').empty();
 			$('#photo-groups-wrapper h2').remove();
 			$('#groups').css('display','block');
 			$('#groups').css('opacity',1);
 			var imgLink = "https://www.flickr.com/photos/"+ imgOwner +"/"+imgId;
-			$('#selected-photo').append("<a href="+ imgLink +" target='_blank'><p>View Photo on Flickr</p></a>");
+			$('#photo-groups-title').append("<a href="+ imgLink +" target='_blank'><p>View Photo on Flickr</p></a>");
 			$('#selected-photo').append("<img src="+ imgUrl +"></img>");
 			if(data.pool.length > 1){
-				$('#photo-groups-wrapper').prepend("<h2>This photo is in "+ data.pool.length +" groups</h2>")
+				$('#photo-groups-title').prepend("<h2>This photo is in "+ data.pool.length +" groups</h2>");
 			}else{
-				$('#photo-groups-wrapper').prepend("<h2>This photo is in " + data.pool.length +" group</h2>")
+				$('#photo-groups-title').prepend("<h2>This photo is in " + data.pool.length +" group</h2>");
 			}
 
 			resizeGroupResults();
@@ -68,7 +67,7 @@ function getPhotoGroups(imgId,imgUrl,addCrumb,imgOwner){
 				$.get("https://api.flickr.com/services/rest/?method=flickr.groups.getInfo&api_key="+ apiKey +"&group_id="+ data.pool[i].id +"&format=json&nojsoncallback=1", function(groupData){
 					var groupPhotoUrl = "http://farm"+ groupData.group.iconfarm +".staticflickr.com/"+ groupData.group.iconserver+"/buddyicons/"+ groupData.group.id +".jpg";
 					var groupName = data.pool[i].title;
-					$('#photo-groups').append("<div id="+ data.pool[i].id +" name='"+ groupName +"' class='groupPhoto'><div class='circular' style='background-image:url("+ groupPhotoUrl +");'></img></div><h3>"+ groupName +"</h3><span style='clear:both'></span></div>");
+					$('#photo-groups').append("<div id="+ data.pool[i].id +" name='"+ groupName +"' class='groupPhoto'><div class='circular' style='background-image:url("+ groupPhotoUrl +");'><img src='img/arrow-icon-overlay.png'></img></div><h3>"+ groupName +"</h3><span style='clear:both'></span></div>");
 				});
 				showPhotoGroups();
 			});

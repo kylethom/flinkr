@@ -78,6 +78,10 @@ a:hover p{
 	padding: 0px 0px;
 }
 
+#breadcrumbs-wrapper::-webkit-scrollbar {
+	width: 0 !important;
+}
+
 #breadcrumbs-wrapper:after{
 	content: "";
 	position: absolute;
@@ -116,9 +120,7 @@ a:hover p{
 	background-color: #0063dc;
 	cursor: pointer;
 	margin: 20px 10px 20px 20px;
-	-webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-	-moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-	box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+	
 
 	-o-transition: box-shadow 0.2s ease;
 	-ms-transition: box-shadow 0.2s ease;
@@ -156,6 +158,7 @@ a:hover p{
 	background-size: cover !important;
 	cursor: pointer;
 	border: 2px solid white;
+	overflow: hidden;
 
 	transition: border 0.2s ease;
 	-o-transition: border 0.2s ease;
@@ -167,6 +170,10 @@ a:hover p{
 #breadcrumbs-root:hover,
 .circular:hover{
 	border: solid 2px #fc329b;
+}
+
+.circular img{
+	opacity: 0;
 }
 
 .group-crumb{
@@ -338,6 +345,15 @@ a:hover p{
 	-moz-transition: opacity 0.5s ease;
 }
 
+#photo-groups-title h2{
+	float: left;
+}
+
+#photo-groups-title a{
+	float: right;
+	padding-top: 14px;
+}
+
 #selected-photo{
 	float: left;
 	height: 100%;
@@ -358,9 +374,15 @@ a:hover p{
 
 #photo-groups-wrapper{
 	float: left;
-	width: 50%;
-	height: 100%;
+	width: 100%;
+	/*height: 100%;*/
+	padding: 25px 20px;
+	border-radius: 25px;
+	margin-bottom: 20px;
 	box-sizing: border-box;
+	-webkit-box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
 }
 
 #photo-groups-wrapper h2{
@@ -369,9 +391,11 @@ a:hover p{
 
 #photo-groups{
 	height: 100%;
-	left: 50%;
+	width: 50%;
 	top: 0;
 	bottom: 0;
+	float: left;
+	margin-top: -10px;
 	box-sizing: border-box;
 	overflow-y: auto;
 	padding-right: 20px;
@@ -398,6 +422,10 @@ a:hover p{
 
 .groupPhoto:hover .circular{
 	border: 2px solid #fc329b;
+}
+
+.groupPhoto:hover .circular img{
+	opacity: 1;
 }
 
 .groupPhoto h3{
